@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="container">
+        <form class="mt-5" name="search" action="/search_results">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="search...">
+                <button type="submit" class="btn btn-success">Go</button>
+            </div>
+        </form>
+    </div>
+
+    <!--<div class="col mt-4s"><h5>Search Results</h5></div> -->
+
+    <div class="container">
+        {% if len(search_results) == 0 %}
+            <h4><strong>No results</strong></h4>
+        {% endif %}
+
+        {% for link in search_results %}
+            <div class="col mt-3">
+                <div class="col">
+                    <a href="{{ link.url }}"><h5><strong>{{ link.title }}</strong></h5></a>
+                </div>
+                <div class="col">
+                    <a href="{{ link.url }}">{{ link.url }}</a>
+                    <p>{{ link.description [:300] }} ...</p>
+                </div>
+            </div>
+        {% endfor %}
+
+        <!--<strong>found {{ len(search_results) }} matches</strong> -->
+
+        <!-- pages -->
+        <div class="col-5 mx-auto">
+            {{ pagination.links }}
+        </div>
+
+    </div>
+{% endblock %}
